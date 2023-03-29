@@ -32,7 +32,10 @@ function AnswerPage() {
       .collection('answers')
       .orderBy('createdAt', 'asc')
       .onSnapshot((snapshot) => {
+        console.log('snapshot', snapshot);
+
         setAnswers(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+        console.log(answers)
       });
 
     return () => unsubscribe();
@@ -65,7 +68,7 @@ function AnswerPage() {
   return (
     <div>
       {question && (
-        <div>
+        <div className="questionasked">
           <h2>{question.title}</h2>
           <p className="question-tags">{question.tags}</p>
           <p className="question-posted-by">Posted by {question.userEmail} {formatDistanceToNow(question.createdAt.toDate())} ago</p>
@@ -75,7 +78,7 @@ function AnswerPage() {
       <hr />
       <h2>Answers</h2>
       {answers.map((answer) => (
-        <div key={answer.id}>
+        <div key={answer.id} className="Answers">
           <p>{answer.text}</p>
           <p className="answer-info">Answered by {answer.userEmail} {formatDistanceToNow(answer.createdAt.toDate())} ago</p>
           <hr />
@@ -100,3 +103,4 @@ function AnswerPage() {
 }
 
 export default AnswerPage;
+
