@@ -35,7 +35,7 @@ function QuestionsPage() {
           <div className="question-infomation">
             <h3 className="question-name">{question.title}</h3>
             <p className="question-topic">Tags: {question.tags}</p>
-            <p className="question-poster">Posted {formatDistanceToNow(question.createdAt.toDate())} ago by {question.userEmail}</p>
+            <p className="question-posted-by">Posted {formatDistanceToNow(question.createdAt.toDate())} ago by {question.userEmail}</p>
           </div>
           {/* <p className="question-body">{question.body}</p> */}
         </div>

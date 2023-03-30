@@ -57,6 +57,28 @@ function AnswersPage() {
     content.value = ''; // clear the input field
   };
 
+  const handleDeleteAnswer = async (answerId) => {
+    const db = firebase.firestore();
+    const answerRef = db.collection('questions').doc(questionId).collection('answers').doc(answerId);
+
+    const userConfirm = window.confirm('Are you sure you want to delete this answer?');
+
+    if (userConfirm) {
+      await answerRef.delete();
+    }
+  };
+
+  const handleDeleteQuestion = async () => {
+    const db = firebase.firestore();
+    const questionRef = db.collection('questions').doc(questionId);
+
+    const userConfirm = window.confirm('Are you sure you want to delete this question? This action cannot be undone.');
+
+    if (userConfirm) {
+      await questionRef.delete();
+    }
+  };
+
   return (
     <div className="answers-page">
       {question && (
@@ -65,7 +87,11 @@ function AnswersPage() {
             <h3 className="question-title">{question.title}</h3>
             <p className="question-tags">Tags: {question.tags}</p>
             <p className="question-posted-by">Posted {question.createdAt && formatDistanceToNow(question.createdAt.toDate())} ago by {question.userEmail}</p>
-
+            {question.userUid === firebase.auth().currentUser.uid && (
+              <button className="delete-question-button" onClick={handleDeleteQuestion}>
+                Delete Question
+              </button>
+            )}
           </div>
           <p className="question-body">{question.body}</p>
         </div>
@@ -77,21 +103,30 @@ function AnswersPage() {
         </form>
       </div>
       {answers.length > 0 ? (
-        <div className="answers-list">
-          {answers.map((answer) => (
-            <div key={answer.id} className="answer-container">
-              <div className="answer-info">
-                <p className="answer-content">{answer.content}</p>
-                <p className="answer-posted-by">Posted {answer.createdAt && formatDistanceToNow(answer.createdAt.toDate())} ago by {answer.userEmail}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>No answers yet.</p>
-      )}
+
+<div className="answers-list">
+  {answers.map((answer) => (
+    <div key={answer.id} className="answer-container">
+      <div className="answer-info">
+        <p className="answer-content">{answer.content}</p>
+        <p className="answer-posted-by">Posted {answer.createdAt && formatDistanceToNow(answer.createdAt.toDate())} ago by {answer.userEmail}</p>
+        {firebase.auth().currentUser && answer.userUid === firebase.auth().currentUser.uid && (
+  <button className="delete-answer-button" onClick={() => handleDeleteAnswer(answer.id)}>
+    Delete
+  </button>
+)}
+
+      </div>
     </div>
+  ))}
+</div>
+) : (
+<p>No answers yet.</p>
+)}
+</div>
   );
 }
-
 export default AnswersPage;
+
+
+
