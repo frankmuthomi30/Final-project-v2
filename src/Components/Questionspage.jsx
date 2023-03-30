@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Questionspage.css';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
-import { useNavigate, useParams } from 'react-router-dom';
-import Answeringpage from './Answeringpage';
+import { useNavigate } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
 
 function QuestionsPage() {
@@ -25,7 +24,7 @@ function QuestionsPage() {
   }, []);
 
   const handleQuestionClick = (questionId) => {
-    navigate(`/Answeringpage/${questionId}`); // navigate to the AnsweringPage with the questionId as a parameter
+    navigate(`/AnswersPage/${questionId}`); // navigate to the AnswersPage with the questionId as a parameter
   };
 
   return (
