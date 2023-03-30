@@ -1,7 +1,9 @@
-body{
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+
+  body {
+    padding-top: 80px; /* adjust this value to match the height of your navbar */
+  }
+  
+
 .HomePage {
     display: flex;
     flex-direction: column;

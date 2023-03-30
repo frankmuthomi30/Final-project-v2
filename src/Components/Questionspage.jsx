@@ -32,10 +32,10 @@ function QuestionsPage() {
       <h2>Questions</h2>
       {questions.map((question) => (
         <div key={question.id} className="question-container" onClick={() => handleQuestionClick(question.id)}>
-          <div className="question-info">
-            <h3 className="question-title">{question.title}</h3>
-            <p className="question-tags">Tags: {question.tags}</p>
-            <p className="question-posted-by">Posted {formatDistanceToNow(question.createdAt.toDate())} ago by {question.userEmail}</p>
+          <div className="question-infomation">
+            <h3 className="question-name">{question.title}</h3>
+            <p className="question-topic">Tags: {question.tags}</p>
+            <p className="question-poster">Posted {formatDistanceToNow(question.createdAt.toDate())} ago by {question.userEmail}</p>
           </div>
           {/* <p className="question-body">{question.body}</p> */}
         </div>

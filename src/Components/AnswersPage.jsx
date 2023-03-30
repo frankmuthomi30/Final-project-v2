@@ -3,6 +3,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import { useParams } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
+import './AnswersPage.css'
 
 function AnswersPage() {
   const [question, setQuestion] = useState(null);
@@ -63,7 +64,8 @@ function AnswersPage() {
           <div className="question-info">
             <h3 className="question-title">{question.title}</h3>
             <p className="question-tags">Tags: {question.tags}</p>
-            <p className="question-posted-by">Posted {formatDistanceToNow(question.createdAt.toDate())} ago by {question.userEmail}</p>
+            <p className="question-posted-by">Posted {question.createdAt && formatDistanceToNow(question.createdAt.toDate())} ago by {question.userEmail}</p>
+
           </div>
           <p className="question-body">{question.body}</p>
         </div>
@@ -80,7 +82,7 @@ function AnswersPage() {
             <div key={answer.id} className="answer-container">
               <div className="answer-info">
                 <p className="answer-content">{answer.content}</p>
-                <p className="answer-posted-by">Posted {formatDistanceToNow(answer.createdAt.toDate())} ago by {answer.userEmail}</p>
+                <p className="answer-posted-by">Posted {answer.createdAt && formatDistanceToNow(answer.createdAt.toDate())} ago by {answer.userEmail}</p>
               </div>
             </div>
           ))}
